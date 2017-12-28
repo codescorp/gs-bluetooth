@@ -3,8 +3,11 @@
  */
 package org.demo.bluetooth.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.bluetooth.RemoteDevice;
 
@@ -83,6 +86,61 @@ public class BluetoothDeviceCache {
 	 */
 	public BluetoothDevice getDevice(String deviceName) {
 		return cache.get(deviceName);
+	}
+	
+	/**
+	 * 
+	 * @param deviceName
+	 * @return
+	 */
+	public RemoteDevice getRemoteDevice(String deviceName) {
+		BluetoothDevice btDevice = cache.get(deviceName);
+		RemoteDevice btRemoteDevice = null;
+		if(null != btDevice) {
+			btRemoteDevice = btDevice.getRemoteDevice();
+		}
+		
+		return btRemoteDevice;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<BluetoothDevice> getAllDevices() {
+		if(cache.isEmpty()) {
+			return null;
+		}
+		List<BluetoothDevice> deviceList = new ArrayList<>();
+		for(Entry<String, BluetoothDevice> entry : cache.entrySet()) {
+			deviceList.add(entry.getValue());
+		}
+		
+		return deviceList;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<RemoteDevice> getAllRemoteDevices() {
+		if(cache.isEmpty()) {
+			return null;
+		}
+		List<RemoteDevice> deviceList = new ArrayList<>();
+		for(Entry<String, BluetoothDevice> entry : cache.entrySet()) {
+			deviceList.add(entry.getValue().getRemoteDevice());
+		}
+		
+		return deviceList;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return cache.isEmpty();
 	}
 
 	/* (non-Javadoc)

@@ -12,14 +12,7 @@ public class BluetoothDeviceTableRow {
 	private String name;
 	private String address;
 	
-	/**
-	 * @param name
-	 * @param address
-	 */
-	public BluetoothDeviceTableRow(String name, String address) {
-		this.name = name;
-		this.address = address;
-	}
+	
 	/**
 	 * @return the name
 	 */

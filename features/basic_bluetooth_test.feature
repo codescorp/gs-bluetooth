@@ -5,6 +5,6 @@ Feature: Basic Bluetooth Discovery Test
   """
 
   Scenario: Discover Devices
-    Given I discover the below bluetooth devices within 5 seconds
+    Given I discover the below bluetooth devices
       | name       | address      |
       | Moto G (4) | CC61E5277F59 |

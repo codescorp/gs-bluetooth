@@ -1,8 +1,11 @@
 package org.demo.bluetooth.stepdef;
 
+import static org.junit.Assert.fail;
+
 import java.util.List;
 
 import org.demo.bluetooth.conf.BluetoothAppConfig;
+import org.demo.bluetooth.models.BluetoothDeviceResponse;
 import org.demo.bluetooth.service.I_BluetoothService;
 import org.demo.bluetooth.stepdef.table.BluetoothDeviceTableRow;
 import org.slf4j.Logger;
@@ -31,10 +34,11 @@ public class BluetoothStepDef implements En {
 		/**
 		 * 
 		 */
-		Given("I discover the below bluetooth devices within (\\d+) seconds", (Integer timeOut, DataTable devices) -> {
+		Given("I discover the below bluetooth devices", (DataTable devices) -> {
 			List<BluetoothDeviceTableRow> deviceList = devices.asList(BluetoothDeviceTableRow.class);
-			for(BluetoothDeviceTableRow device : deviceList) {
-				LOGGER.debug("\n{} - {}", device.getName(), device.getAddress());
+			BluetoothDeviceResponse response = bluetoothService.discoverBTDevice(deviceList);
+			if(!response.isSuccess()) {
+				fail(response.getErrorMessage());
 			}
 		});
 		

@@ -16,4 +16,12 @@ public class BluetoothDevice {
 	public BluetoothDevice(RemoteDevice device) {
 		this.device = device;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public RemoteDevice getRemoteDevice() {
+		return this.device;
+	}
 }
