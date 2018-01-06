@@ -21,10 +21,9 @@ import org.slf4j.LoggerFactory;
 public class BluetoothDeviceDiscoverer implements DiscoveryListener {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(BluetoothDeviceDiscoverer.class);
-
 	private BluetoothDeviceCache cache = BluetoothDeviceCache.getInstance();
 	
-	private Object eventLock;
+	private Object eventLock;	// Will be used as a lock for both device discovery and search service
 	
 	/**
 	 * 
@@ -39,6 +38,7 @@ public class BluetoothDeviceDiscoverer implements DiscoveryListener {
 	 */
 	@Override
 	public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
+		LOGGER.info("Discover bluetooth devices around...");
 		try {
             String deviceFriendlyName = btDevice.getFriendlyName(false);
             LOGGER.info("Device discovered {} - {}", deviceFriendlyName, btDevice.getBluetoothAddress());
@@ -53,8 +53,11 @@ public class BluetoothDeviceDiscoverer implements DiscoveryListener {
 	 */
 	@Override
 	public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
-		// TODO Auto-generated method stub
-
+		LOGGER.info("Searching for the services...");
+		for(ServiceRecord serviceRecord : servRecord) {
+			String url = serviceRecord.getConnectionURL(ServiceRecord.NOAUTHENTICATE_NOENCRYPT, false);
+			LOGGER.info("Connection url for service : {}", url);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -62,8 +65,10 @@ public class BluetoothDeviceDiscoverer implements DiscoveryListener {
 	 */
 	@Override
 	public void serviceSearchCompleted(int transID, int respCode) {
-		// TODO Auto-generated method stub
-
+		LOGGER.info("Searching for the services is completed.");
+		synchronized (eventLock) {
+			eventLock.notifyAll();
+        }
 	}
 
 	/* (non-Javadoc)
@@ -71,9 +76,9 @@ public class BluetoothDeviceDiscoverer implements DiscoveryListener {
 	 */
 	@Override
 	public void inquiryCompleted(int discType) {
-		LOGGER.info("Device inquiry is completed");
-        synchronized (this.eventLock) {
-            this.eventLock.notifyAll();
+		LOGGER.info("Device inquiry is completed.");
+        synchronized (eventLock) {
+            eventLock.notifyAll();
         }
 	}
 

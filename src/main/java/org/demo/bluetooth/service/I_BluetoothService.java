@@ -12,5 +12,12 @@ public interface I_BluetoothService {
 	 * @param btDeviceRows
 	 * @return
 	 */
-	public BluetoothDeviceResponse discoverBTDevice(List<BluetoothDeviceTableRow> btDeviceRows);
+	BluetoothDeviceResponse discoverBTDevice(List<BluetoothDeviceTableRow> btDeviceRows);
+	
+	/**
+	 * 
+	 * @param btDeviceRows
+	 * @return
+	 */
+	BluetoothDeviceResponse searchServiceInBTDevice(List<BluetoothDeviceTableRow> btDeviceRows);
 }

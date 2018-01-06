@@ -9,9 +9,9 @@ package org.demo.bluetooth.stepdef.table;
  */
 public class BluetoothDeviceTableRow {
 
-	private String name;
-	private String address;
-	
+	private String name;				// Device friendly name
+	private String address;				// Device address
+	private String service; 			// Service to find in the associated bluetooth device
 	
 	/**
 	 * @return the name
@@ -37,4 +37,17 @@ public class BluetoothDeviceTableRow {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	/**
+	 * @return the service
+	 */
+	public String getService() {
+		return service;
+	}
+	/**
+	 * @param service the service to set
+	 */
+	public void setService(String service) {
+		this.service = service;
+	}
+	
 }

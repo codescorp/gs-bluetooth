@@ -45,8 +45,9 @@ public class BluetoothStepDef implements En {
 		/**
 		 * 
 		 */
-		And("I connect device with id(\\s+)", (String deviceId) -> {
-	        LOGGER.debug("Implementation pending");
+		And("the bluetooth devices have the below services", (DataTable devices) -> {
+			List<BluetoothDeviceTableRow> deviceList = devices.asList(BluetoothDeviceTableRow.class);
+			
 	    });
 	}
 	

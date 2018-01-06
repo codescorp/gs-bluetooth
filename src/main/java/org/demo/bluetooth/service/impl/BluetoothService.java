@@ -102,4 +102,15 @@ public class BluetoothService implements I_BluetoothService {
 		return response;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.demo.bluetooth.service.I_BluetoothService#searchServiceInBTDevice(java.util.List)
+	 */
+	public BluetoothDeviceResponse searchServiceInBTDevice(List<BluetoothDeviceTableRow> btDeviceRows) {
+		BluetoothDeviceResponse response = null;
+		boolean matchFound = false;
+		
+		return response;
+	}
+	
 }
